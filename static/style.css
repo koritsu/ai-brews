@@ -41,6 +41,7 @@ header h1 a {
 
 .header-right {
     display: flex;
+    justify-content: right;
     align-items: center;
 }
 
@@ -53,6 +54,11 @@ header h1 a {
     padding: 10px 20px;
     border-radius: 5px;
     font-weight: bold;
+    max-width: 30%;
+}
+
+.header-right img{
+    max-width: 100%;
 }
 
 main {
