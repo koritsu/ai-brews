@@ -10,9 +10,12 @@
 </head>
 <body>
 <header>
-    <h1>AI BREWS</h1>
+    <h1><a href="/">AI BREWS</a></h1>
+    <nav class="header-center">
+        <a href="about.html">ABOUT</a>
+    </nav>
     <div class="header-right">
-        <a href="about.html">about</a>
+        <a href="mailto:koritsu20000@gmail.com?subject=Share%20Your%20Recipe&body=Please%20share%20your%20recipe%20details%20here.">Write and Share Your Recipe</a>
     </div>
 </header>
 <main>
@@ -38,7 +41,7 @@
                     <img src="${recipe.image_url}" alt="${recipe.title}">
                     <div class="overlay">
                         <div class="item">
-                            <a href="${recipe.recipe_url}" target="_blank"><i class="fas fa-book"></i></a>
+                            <a href="${recipe.share_url}" target="_blank"><i class="fas fa-book"></i></a>
                         </div>
                         <div class="item">
                             <i class="fas fa-share-alt" onclick="toggleShareButtons(this)"></i>
