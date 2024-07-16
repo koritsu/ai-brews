@@ -25,16 +25,16 @@ func UpdateRecipe(db *gorm.DB) http.HandlerFunc {
 		if updatedRecipe.ImageURL == "" {
 			rand.Seed(time.Now().UnixNano())
 			defaultImages := []string{
-				"/static/default_image1.png",
-				"/static/default_image2.png",
-				"/static/default_image3.png",
-				"/static/default_image4.png",
-				"/static/default_image5.png",
-				"/static/default_image6.png",
-				"/static/default_image7.png",
-				"/static/default_image8.png",
-				"/static/default_image9.png",
-				"/static/default_image10.png",
+				"/static/default_image1.jpg",
+				"/static/default_image2.jpg",
+				"/static/default_image3.jpg",
+				"/static/default_image4.jpg",
+				"/static/default_image5.jpg",
+				"/static/default_image6.jpg",
+				"/static/default_image7.jpg",
+				"/static/default_image8.jpg,
+				"/static/default_image9.jpg",
+				"/static/default_image10.jpg",
 			}
 			updatedRecipe.ImageURL = defaultImages[rand.Intn(len(defaultImages))]
 		}
