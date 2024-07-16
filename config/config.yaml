@@ -1,0 +1,5 @@
+db_path: "./myapp.db"
+server_port: "8080"
+admin_username: "admin"
+
+

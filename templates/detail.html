@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Detail</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header>
+    <div class="logo">
+        <img src="/static/logo.png" alt="Cafe Logo">
+    </div>
+    <h1>Recipe Detail</h1>
+</header>
+<main>
+    <div class="recipe-detail">
+        <!-- Recipe details will be dynamically loaded here -->
+    </div>
+</main>
+<footer>
+    <p>&copy; 2024 Recipe Cafe. All rights reserved.</p>
+</footer>
+<script>
+    const recipeId = window.location.pathname.split('/').pop();
+    fetch(`/recipe/${recipeId}`)
+        .then(response => response.json())
+        .then(recipe => {
+            const recipeDetail = document.querySelector('.recipe-detail');
+            recipeDetail.innerHTML = `
+                    <h2>${recipe.title}</h2>
+                    <img src="${recipe.image_url}" alt="${recipe.title}">
+                    <p>Share URL: <a href="${recipe.share_url}" target="_blank">${recipe.share_url}</a></p>
+                    <p>Created by: ${recipe.email}</p>
+                `;
+        });
+</script>
+</body>
+</html>

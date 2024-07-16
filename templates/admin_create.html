@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Admin</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header>
+    <h1>Create Admin</h1>
+</header>
+<main>
+    <form id="createAdminForm">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <button type="submit">Create Admin</button>
+    </form>
+</main>
+<footer>
+    <p>&copy; 2024 Recipe Cafe. All rights reserved.</p>
+</footer>
+<script>
+    document.getElementById('createAdminForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+        const data = {
+            username: event.target.username.value,
+            password: event.target.password.value
+        };
+
+        fetch('/admin', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        }).then(response => {
+            if (response.ok) {
+                window.location.href = '/admin/list';
+            } else {
+                alert('Error creating admin');
+            }
+        });
+    });
+</script>
+</body>
+</html>

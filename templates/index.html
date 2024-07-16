@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI BREWS Index</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/font.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+<header>
+    <h1>AI BREWS</h1>
+    <div class="header-right">
+        <a href="about.html">about</a>
+    </div>
+</header>
+<main>
+    <div>Welcome to ai-brews.com! <br/> Here, as an AI Brewer, you can share your creative AI commands and results, and discover new possibilities!</div>
+    <div class="recipe-list">
+        <!-- Recipes will be dynamically loaded here -->
+    </div>
+</main>
+<footer>
+    <p>&copy; 2024 ai-brews.com All rights reserved.</p>
+</footer>
+
+<script>
+    fetch('/recipes')
+        .then(response => response.json())
+        .then(data => {
+            const recipeList = document.querySelector('.recipe-list');
+            data.forEach(recipe => {
+                const recipeCard = document.createElement('div');
+                recipeCard.classList.add('recipe-card');
+                recipeCard.innerHTML = `
+                        <h2><i class="fas fa-utensils"></i> ${recipe.title}</h2>
+                        <img src="${recipe.image_url}" alt="${recipe.title}">
+                        <div class="overlay">
+                            <div class="item">
+                                <i class="fas fa-book"></i> Recipe <a href="${recipe.recipe_url}" target="_blank"><i class="fas fa-arrow-right"></i></a>
+                            </div>
+                            <div class="item">
+                                <i class="fas fa-share-alt"></i> Result <a href="${recipe.share_url}" target="_blank"><i class="fas fa-arrow-right"></i></a>
+                            </div>
+                            <div class="item">
+                                <i class="fas fa-envelope"></i> Email <a href="mailto:${recipe.email}"><i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    `;
+                recipeList.appendChild(recipeCard);
+            });
+
+        });
+
+    function openPopup(url) {
+        window.open(url, 'Recipe', 'width=800,height=600');
+    }
+</script>
+</body>
+</html>

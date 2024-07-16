@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Edit Recipe</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header>
+    <h1>Edit Recipe</h1>
+</header>
+<main>
+    <form id="editForm">
+        <input type="hidden" id="recipeId">
+        <div>
+            <label for="title">Title</label>
+            <input type="text" id="title" name="title">
+        </div>
+        <div>
+            <label for="image_url">Image URL</label>
+            <input type="text" id="image_url" name="image_url">
+        </div>
+        <div>
+            <label for="recipe_url">Recipe URL:</label>
+            <input type="text" id="recipe_url" name="recipe_url">
+        </div>
+        <div>
+            <label for="share_url">Share URL</label>
+            <input type="text" id="share_url" name="share_url">
+        </div>
+        <div>
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email">
+        </div>
+        <button type="button" onclick="submitForm()">Save</button>
+    </form>
+</main>
+<footer>
+    <p>&copy; 2024 Recipe Cafe. All rights reserved.</p>
+</footer>
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const recipeId = window.location.pathname.split('/').pop();
+
+        fetch(`/recipe/${recipeId}`)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('recipeId').value = data.id;
+                document.getElementById('title').value = data.title;
+                document.getElementById('image_url').value = data.image_url;
+                document.getElementById('recipe_url').value = data.recipe_url;
+                document.getElementById('share_url').value = data.share_url;
+                document.getElementById('email').value = data.email;
+            });
+    });
+
+    function submitForm() {
+        const recipeId = document.getElementById('recipeId').value;
+        const title = document.getElementById('title').value;
+        const image_url = document.getElementById('image_url').value;
+        const recipe_url = document.getElementById('recipe_url').value;
+        const share_url = document.getElementById('share_url').value;
+        const email = document.getElementById('email').value;
+
+        fetch(`/recipe/${recipeId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({title, image_url, share_url, recipe_url, email})
+        })
+            .then(response => response.json())
+            .then(data => {
+                alert('Recipe updated successfully');
+                window.location.href = '/admin/list';
+            })
+            .catch(error => {
+                alert('Error updating recipe');
+            });
+    }
+</script>
+</body>
+</html>

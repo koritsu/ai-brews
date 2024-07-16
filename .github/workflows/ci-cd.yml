@@ -1,0 +1,56 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Build Docker image
+        run: |
+          docker build -t myapp:latest .
+
+      - name: Save Docker image to file
+        run: |
+          docker save myapp:latest -o myapp.tar
+
+      - name: Upload Docker image to artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: myapp-image
+          path: myapp.tar
+
+      - name: Deploy to EC2
+        env:
+          EC2_KEY: ${{ secrets.EC2_KEY }}
+          EC2_HOST: ${{ secrets.EC2_HOST }}
+          USER: ec2-user
+
+        run: |
+          echo "$EC2_KEY" > key.pem
+          chmod 600 key.pem
+          
+          # Copy Docker image and docker-compose file to EC2
+          scp -i key.pem -o StrictHostKeyChecking=no myapp.tar $USER@$EC2_HOST:/home/$USER/
+          scp -i key.pem -o StrictHostKeyChecking=no docker-compose.yml $USER@$EC2_HOST:/home/$USER/
+          
+          # SSH into EC2 and load the Docker image and start the container
+          ssh -i key.pem -o StrictHostKeyChecking=no $USER@$EC2_HOST << EOF
+            docker load -i /home/$USER/myapp.tar
+            cd /home/$USER/
+            docker compose up -d --remove-orphans
+            docker image prune -f
+          EOF
