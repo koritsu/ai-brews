@@ -28,7 +28,6 @@ header h1 a {
 
 .header-center {
     display: flex;
-    justify-content: center;
     flex: 1;
 }
 
@@ -50,7 +49,6 @@ header h1 a {
     text-decoration: none;
     color: #333;
     font-size: 1em;
-    background-color: #ffdd00;
     padding: 10px 20px;
     border-radius: 5px;
     font-weight: bold;
@@ -99,7 +97,7 @@ main {
 .recipe-card h2 {
     display: flex;
     align-items: center;
-    font-size: 1em;
+    font-size: 1rem;
 }
 
 .recipe-card h2 i {
