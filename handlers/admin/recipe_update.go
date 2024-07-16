@@ -32,7 +32,7 @@ func UpdateRecipe(db *gorm.DB) http.HandlerFunc {
 				"/static/default_image5.jpg",
 				"/static/default_image6.jpg",
 				"/static/default_image7.jpg",
-				"/static/default_image8.jpg,
+				"/static/default_image8.jpg",
 				"/static/default_image9.jpg",
 				"/static/default_image10.jpg",
 			}
