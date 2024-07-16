@@ -31,7 +31,7 @@
                 recipeCard.classList.add('recipe-card');
                 recipeCard.innerHTML = `
                         <h2><i class="fas fa-utensils"></i> ${recipe.title}</h2>
-                        <img src="${recipe.image_url}" alt="${recipe.title}">
+                        <div>${recipe.image_url} <br/> ${recipe.share_url} <br/> ${recipe.email}</div>
                         <div class="actions">
                             <button onclick="location.href='/admin/recipe/update/${recipe.id}'">Edit</button>
                         </div>
