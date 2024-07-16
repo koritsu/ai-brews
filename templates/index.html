@@ -34,27 +34,52 @@
                 const recipeCard = document.createElement('div');
                 recipeCard.classList.add('recipe-card');
                 recipeCard.innerHTML = `
-                        <h2><i class="fas fa-utensils"></i> ${recipe.title}</h2>
-                        <img src="${recipe.image_url}" alt="${recipe.title}">
-                        <div class="overlay">
-                            <div class="item">
-                                <i class="fas fa-book"></i> Recipe <a href="${recipe.recipe_url}" target="_blank"><i class="fas fa-arrow-right"></i></a>
-                            </div>
-                            <div class="item">
-                                <i class="fas fa-share-alt"></i> Result <a href="${recipe.share_url}" target="_blank"><i class="fas fa-arrow-right"></i></a>
-                            </div>
-                            <div class="item">
-                                <i class="fas fa-envelope"></i> Email <a href="mailto:${recipe.email}"><i class="fas fa-arrow-right"></i></a>
+                    <h2><i class="fas fa-utensils"></i> ${recipe.title}</h2>
+                    <img src="${recipe.image_url}" alt="${recipe.title}">
+                    <div class="overlay">
+                        <div class="item">
+                            <a href="${recipe.recipe_url}" target="_blank"><i class="fas fa-book"></i></a>
+                        </div>
+                        <div class="item">
+                            <i class="fas fa-share-alt" onclick="toggleShareButtons(this)"></i>
+                            <div class="share-buttons">
+                                <button onclick="shareOnTwitter('${recipe.share_url}')"><i class="fab fa-twitter"></i> Twitter</button>
+                                <button onclick="shareOnLinkedIn('${recipe.share_url}')"><i class="fab fa-linkedin"></i> LinkedIn</button>
+                                <button onclick="copyToClipboard('${recipe.share_url}')"><i class="fas fa-clipboard"></i> Copy URL</button>
                             </div>
                         </div>
-                    `;
+                        <div class="item">
+                            <a href="mailto:${recipe.email}"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                `;
+
                 recipeList.appendChild(recipeCard);
             });
 
         });
 
-    function openPopup(url) {
-        window.open(url, 'Recipe', 'width=800,height=600');
+    function shareOnTwitter(url) {
+        const twitterUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}`;
+        window.open(twitterUrl, '_blank');
+    }
+
+    function shareOnLinkedIn(url) {
+        const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
+        window.open(linkedInUrl, '_blank');
+    }
+
+    function copyToClipboard(url) {
+        navigator.clipboard.writeText(url).then(() => {
+            alert('URL copied to clipboard');
+        }).catch(err => {
+            console.error('Failed to copy: ', err);
+        });
+    }
+
+    function toggleShareButtons(element) {
+        const shareButtons = element.nextElementSibling;
+        shareButtons.style.display = shareButtons.style.display === 'block' ? 'none' : 'block';
     }
 </script>
 </body>

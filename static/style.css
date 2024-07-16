@@ -92,12 +92,12 @@ main {
     background: rgba(0, 0, 0, 0.7);
     color: white;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
-    align-items: flex-start; /* 좌측 정렬 */
+    align-items: center;
     opacity: 0;
     transition: opacity 0.3s ease;
-    padding-left: 10px; /* 좌측 여백 */
+    gap: 20px; /* 아이템 간격 */
 }
 
 .recipe-card:hover .overlay {
@@ -119,6 +119,52 @@ main {
     margin-left: 10px;
     text-decoration: none; /* 언더라인 제거 */
     cursor: pointer;
+}
+
+
+.item {
+    position: relative;
+    display: flex; /* 변경: 요소를 가로로 배치 */
+    flex-direction: column; /* 변경: 요소를 세로로 배치 */
+    align-items: center; /* 변경: 중앙 정렬 */
+    text-align: center;
+    margin: 10px;
+}
+
+.item i, .item button {
+    font-size: 2em;
+    cursor: pointer;
+}
+
+.item button {
+    cursor: pointer;
+    display: block;
+    margin: 5px 0;
+    font-size: 1em; /* 버튼 텍스트 크기 조정 */
+    /* 버튼 배경색 */
+    background: #fff none;
+    border: 1px solid #ddd; /* 버튼 테두리 */
+    border-radius: 5px; /* 버튼 모서리 둥글게 */
+    padding: 5px 10px; /* 버튼 안쪽 여백 */
+}
+.share-buttons {
+    display: none; /* 처음에는 보이지 않음 */
+    margin-top: 10px;
+    text-align: center;
+}
+
+.item:hover::after {
+    content: attr(title);
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 3px;
+    white-space: nowrap;
+    font-size: 0.9em;
 }
 
 
